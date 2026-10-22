@@ -1,0 +1,380 @@
+[
+  {
+    "Segment": "COAL",
+    "SegmentText": "Coal Mining",
+    "SegmentSortOrder": "0010",
+    "FiscalYear": "2024",
+    "FiscalQuarter": "1",
+    "Currency": "IDR",
+    "GrossProfit": "414353750.00"
+  },
+  {
+    "Segment": "CONSTR",
+    "SegmentText": "Construction",
+    "SegmentSortOrder": "0020",
+    "FiscalYear": "2024",
+    "FiscalQuarter": "1",
+    "Currency": "IDR",
+    "GrossProfit": "178257969.28"
+  },
+  {
+    "Segment": "CONMACH",
+    "SegmentText": "Construction Machinery",
+    "SegmentSortOrder": "0030",
+    "FiscalYear": "2024",
+    "FiscalQuarter": "1",
+    "Currency": "IDR",
+    "GrossProfit": "344651331.35"
+  },
+  {
+    "Segment": "ENERGY",
+    "SegmentText": "Energy",
+    "SegmentSortOrder": "0040",
+    "FiscalYear": "2024",
+    "FiscalQuarter": "1",
+    "Currency": "IDR",
+    "GrossProfit": "7550612.33"
+  },
+  {
+    "Segment": "GOLD",
+    "SegmentText": "Gold Mining",
+    "SegmentSortOrder": "0050",
+    "FiscalYear": "2024",
+    "FiscalQuarter": "1",
+    "Currency": "IDR",
+    "GrossProfit": "210048068.38"
+  },
+  {
+    "Segment": "MINCON",
+    "SegmentText": "Mining Contracting",
+    "SegmentSortOrder": "0060",
+    "FiscalYear": "2024",
+    "FiscalQuarter": "1",
+    "Currency": "IDR",
+    "GrossProfit": "339537254.97"
+  },
+  {
+    "Segment": "COAL",
+    "SegmentText": "Coal Mining",
+    "SegmentSortOrder": "0010",
+    "FiscalYear": "2024",
+    "FiscalQuarter": "2",
+    "Currency": "IDR",
+    "GrossProfit": "592860781.95"
+  },
+  {
+    "Segment": "CONSTR",
+    "SegmentText": "Construction",
+    "SegmentSortOrder": "0020",
+    "FiscalYear": "2024",
+    "FiscalQuarter": "2",
+    "Currency": "IDR",
+    "GrossProfit": "168137984.79"
+  },
+  {
+    "Segment": "CONMACH",
+    "SegmentText": "Construction Machinery",
+    "SegmentSortOrder": "0030",
+    "FiscalYear": "2024",
+    "FiscalQuarter": "2",
+    "Currency": "IDR",
+    "GrossProfit": "362157350.65"
+  },
+  {
+    "Segment": "ENERGY",
+    "SegmentText": "Energy",
+    "SegmentSortOrder": "0040",
+    "FiscalYear": "2024",
+    "FiscalQuarter": "2",
+    "Currency": "IDR",
+    "GrossProfit": "8011654.12"
+  },
+  {
+    "Segment": "GOLD",
+    "SegmentText": "Gold Mining",
+    "SegmentSortOrder": "0050",
+    "FiscalYear": "2024",
+    "FiscalQuarter": "2",
+    "Currency": "IDR",
+    "GrossProfit": "230904440.36"
+  },
+  {
+    "Segment": "MINCON",
+    "SegmentText": "Mining Contracting",
+    "SegmentSortOrder": "0060",
+    "FiscalYear": "2024",
+    "FiscalQuarter": "2",
+    "Currency": "IDR",
+    "GrossProfit": "329791014.16"
+  },
+  {
+    "Segment": "COAL",
+    "SegmentText": "Coal Mining",
+    "SegmentSortOrder": "0010",
+    "FiscalYear": "2024",
+    "FiscalQuarter": "3",
+    "Currency": "IDR",
+    "GrossProfit": "566247783.44"
+  },
+  {
+    "Segment": "CONSTR",
+    "SegmentText": "Construction",
+    "SegmentSortOrder": "0020",
+    "FiscalYear": "2024",
+    "FiscalQuarter": "3",
+    "Currency": "IDR",
+    "GrossProfit": "187111853.79"
+  },
+  {
+    "Segment": "CONMACH",
+    "SegmentText": "Construction Machinery",
+    "SegmentSortOrder": "0030",
+    "FiscalYear": "2024",
+    "FiscalQuarter": "3",
+    "Currency": "IDR",
+    "GrossProfit": "316394227.93"
+  },
+  {
+    "Segment": "ENERGY",
+    "SegmentText": "Energy",
+    "SegmentSortOrder": "0040",
+    "FiscalYear": "2024",
+    "FiscalQuarter": "3",
+    "Currency": "IDR",
+    "GrossProfit": "7940299.16"
+  },
+  {
+    "Segment": "GOLD",
+    "SegmentText": "Gold Mining",
+    "SegmentSortOrder": "0050",
+    "FiscalYear": "2024",
+    "FiscalQuarter": "3",
+    "Currency": "IDR",
+    "GrossProfit": "213229710.11"
+  },
+  {
+    "Segment": "MINCON",
+    "SegmentText": "Mining Contracting",
+    "SegmentSortOrder": "0060",
+    "FiscalYear": "2024",
+    "FiscalQuarter": "3",
+    "Currency": "IDR",
+    "GrossProfit": "289464199.55"
+  },
+  {
+    "Segment": "COAL",
+    "SegmentText": "Coal Mining",
+    "SegmentSortOrder": "0010",
+    "FiscalYear": "2024",
+    "FiscalQuarter": "4",
+    "Currency": "IDR",
+    "GrossProfit": "628925177.98"
+  },
+  {
+    "Segment": "CONSTR",
+    "SegmentText": "Construction",
+    "SegmentSortOrder": "0020",
+    "FiscalYear": "2024",
+    "FiscalQuarter": "4",
+    "Currency": "IDR",
+    "GrossProfit": "165183287.70"
+  },
+  {
+    "Segment": "CONMACH",
+    "SegmentText": "Construction Machinery",
+    "SegmentSortOrder": "0030",
+    "FiscalYear": "2024",
+    "FiscalQuarter": "4",
+    "Currency": "IDR",
+    "GrossProfit": "270950108.34"
+  },
+  {
+    "Segment": "ENERGY",
+    "SegmentText": "Energy",
+    "SegmentSortOrder": "0040",
+    "FiscalYear": "2024",
+    "FiscalQuarter": "4",
+    "Currency": "IDR",
+    "GrossProfit": "10630920.92"
+  },
+  {
+    "Segment": "GOLD",
+    "SegmentText": "Gold Mining",
+    "SegmentSortOrder": "0050",
+    "FiscalYear": "2024",
+    "FiscalQuarter": "4",
+    "Currency": "IDR",
+    "GrossProfit": "227999663.57"
+  },
+  {
+    "Segment": "MINCON",
+    "SegmentText": "Mining Contracting",
+    "SegmentSortOrder": "0060",
+    "FiscalYear": "2024",
+    "FiscalQuarter": "4",
+    "Currency": "IDR",
+    "GrossProfit": "355473125.49"
+  },
+  {
+    "Segment": "COAL",
+    "SegmentText": "Coal Mining",
+    "SegmentSortOrder": "0010",
+    "FiscalYear": "2025",
+    "FiscalQuarter": "1",
+    "Currency": "IDR",
+    "GrossProfit": "535475014.75"
+  },
+  {
+    "Segment": "CONSTR",
+    "SegmentText": "Construction",
+    "SegmentSortOrder": "0020",
+    "FiscalYear": "2025",
+    "FiscalQuarter": "1",
+    "Currency": "IDR",
+    "GrossProfit": "180936633.08"
+  },
+  {
+    "Segment": "CONMACH",
+    "SegmentText": "Construction Machinery",
+    "SegmentSortOrder": "0030",
+    "FiscalYear": "2025",
+    "FiscalQuarter": "1",
+    "Currency": "IDR",
+    "GrossProfit": "310975552.77"
+  },
+  {
+    "Segment": "ENERGY",
+    "SegmentText": "Energy",
+    "SegmentSortOrder": "0040",
+    "FiscalYear": "2025",
+    "FiscalQuarter": "1",
+    "Currency": "IDR",
+    "GrossProfit": "10478365.40"
+  },
+  {
+    "Segment": "GOLD",
+    "SegmentText": "Gold Mining",
+    "SegmentSortOrder": "0050",
+    "FiscalYear": "2025",
+    "FiscalQuarter": "1",
+    "Currency": "IDR",
+    "GrossProfit": "217873388.80"
+  },
+  {
+    "Segment": "MINCON",
+    "SegmentText": "Mining Contracting",
+    "SegmentSortOrder": "0060",
+    "FiscalYear": "2025",
+    "FiscalQuarter": "1",
+    "Currency": "IDR",
+    "GrossProfit": "277067369.79"
+  },
+  {
+    "Segment": "COAL",
+    "SegmentText": "Coal Mining",
+    "SegmentSortOrder": "0010",
+    "FiscalYear": "2025",
+    "FiscalQuarter": "2",
+    "Currency": "IDR",
+    "GrossProfit": "636213613.90"
+  },
+  {
+    "Segment": "CONSTR",
+    "SegmentText": "Construction",
+    "SegmentSortOrder": "0020",
+    "FiscalYear": "2025",
+    "FiscalQuarter": "2",
+    "Currency": "IDR",
+    "GrossProfit": "196522864.16"
+  },
+  {
+    "Segment": "CONMACH",
+    "SegmentText": "Construction Machinery",
+    "SegmentSortOrder": "0030",
+    "FiscalYear": "2025",
+    "FiscalQuarter": "2",
+    "Currency": "IDR",
+    "GrossProfit": "334835275.09"
+  },
+  {
+    "Segment": "ENERGY",
+    "SegmentText": "Energy",
+    "SegmentSortOrder": "0040",
+    "FiscalYear": "2025",
+    "FiscalQuarter": "2",
+    "Currency": "IDR",
+    "GrossProfit": "8827137.87"
+  },
+  {
+    "Segment": "GOLD",
+    "SegmentText": "Gold Mining",
+    "SegmentSortOrder": "0050",
+    "FiscalYear": "2025",
+    "FiscalQuarter": "2",
+    "Currency": "IDR",
+    "GrossProfit": "214506127.22"
+  },
+  {
+    "Segment": "MINCON",
+    "SegmentText": "Mining Contracting",
+    "SegmentSortOrder": "0060",
+    "FiscalYear": "2025",
+    "FiscalQuarter": "2",
+    "Currency": "IDR",
+    "GrossProfit": "289736755.32"
+  },
+  {
+    "Segment": "COAL",
+    "SegmentText": "Coal Mining",
+    "SegmentSortOrder": "0010",
+    "FiscalYear": "2025",
+    "FiscalQuarter": "3",
+    "Currency": "IDR",
+    "GrossProfit": "657233545.47"
+  },
+  {
+    "Segment": "CONSTR",
+    "SegmentText": "Construction",
+    "SegmentSortOrder": "0020",
+    "FiscalYear": "2025",
+    "FiscalQuarter": "3",
+    "Currency": "IDR",
+    "GrossProfit": "191020596.69"
+  },
+  {
+    "Segment": "CONMACH",
+    "SegmentText": "Construction Machinery",
+    "SegmentSortOrder": "0030",
+    "FiscalYear": "2025",
+    "FiscalQuarter": "3",
+    "Currency": "IDR",
+    "GrossProfit": "284636273.63"
+  },
+  {
+    "Segment": "ENERGY",
+    "SegmentText": "Energy",
+    "SegmentSortOrder": "0040",
+    "FiscalYear": "2025",
+    "FiscalQuarter": "3",
+    "Currency": "IDR",
+    "GrossProfit": "8190639.85"
+  },
+  {
+    "Segment": "GOLD",
+    "SegmentText": "Gold Mining",
+    "SegmentSortOrder": "0050",
+    "FiscalYear": "2025",
+    "FiscalQuarter": "3",
+    "Currency": "IDR",
+    "GrossProfit": "224738798.53"
+  },
+  {
+    "Segment": "MINCON",
+    "SegmentText": "Mining Contracting",
+    "SegmentSortOrder": "0060",
+    "FiscalYear": "2025",
+    "FiscalQuarter": "3",
+    "Currency": "IDR",
+    "GrossProfit": "279346107.45"
+  }
+]

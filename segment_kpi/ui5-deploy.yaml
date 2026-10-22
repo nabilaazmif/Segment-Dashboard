@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
+
+specVersion: "4.0"
+metadata:
+  name: segmentkpi
+type: application
+resources:
+  configuration:
+    propertiesFileSourceEncoding: UTF-8
+builder:
+  resources:
+    excludes:
+      - "/test/**"
+      - "/localService/**"
+  customTasks:
+    - name: deploy-to-abap
+      afterTask: generateCachebusterInfo
+      configuration:
+        target:
+          url: http://ares-ap-dev.admo.astra.co.id:8080
+          client: "100"
+        app:
+          name: ZSGDDASH
+          description: Segment Dashboard
+          package: ZDMO
+          transport: ARDK902645
+        exclude:
+          - /test/

@@ -1,0 +1,31 @@
+/* Layout only, no colours: the theme stays in charge of every colour.
+
+   The filter bar is the only content of the page title. Without these two rules the
+   title splits the free space between its content area and its empty actions area,
+   so the filter strip would stop in the middle of the screen. */
+.sapFDynamicPageTitle .sapFDynamicPageTitleMainContent {
+	flex-grow: 1;
+	max-width: 100%;
+}
+
+.sapFDynamicPageTitle .sapFDynamicPageTitleMainActions:empty {
+	flex-grow: 0;
+	flex-basis: 0;
+}
+
+/* The card grid floats its items, which leaves ragged gaps when it wraps. As a
+   flex row the cards wrap cleanly while each one keeps its own height. */
+.sgdCardGrid {
+	display: flex;
+	flex-wrap: wrap;
+	/* Every card keeps the height its own content needs. */
+	align-items: flex-start;
+}
+
+.sgdCardGrid > [class*="sapUiRespGridSpan"] {
+	display: flex;
+}
+
+.sgdCardGrid > [class*="sapUiRespGridSpan"] > .sapFCard {
+	width: 100%;
+}

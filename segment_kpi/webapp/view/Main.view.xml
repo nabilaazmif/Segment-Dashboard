@@ -1,0 +1,568 @@
+<mvc:View
+	controllerName="segmentkpi.controller.Main"
+	displayBlock="true"
+	height="100%"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns:f="sap.f"
+	xmlns:card="sap.f.cards"
+	xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:l="sap.ui.layout"
+	xmlns:viz="sap.viz.ui5.controls"
+	xmlns:vizData="sap.viz.ui5.data">
+
+	<f:DynamicPage
+		id="page"
+		busy="{view>/busy}"
+		busyIndicatorDelay="0"
+		showFooter="false"
+		toggleHeaderOnTitleClick="false">
+
+		<!-- The app name comes from the launchpad shell bar. The filter bar sits in
+		     the title area, so it stays one strip that is always visible and carries
+		     no collapse or pin button. -->
+		<f:title>
+			<f:DynamicPageTitle areaShrinkRatio="0:1:0">
+				<f:content>
+					<fb:FilterBar
+						id="filterBar"
+						width="100%"
+						useToolbar="false"
+						showRestoreButton="false"
+						showFilterConfiguration="false"
+						showGoOnFB="false"
+						showClearOnFB="true"
+						clear=".onClear">
+						<fb:filterGroupItems>
+							<fb:FilterGroupItem
+								name="fiscalYear"
+								groupName="period"
+								label="{i18n>filterYear}"
+								visibleInFilterBar="true">
+								<fb:control>
+									<MultiComboBox
+										id="cbYear"
+										width="100%"
+										items="{view>/years}"
+										selectedKeys="{view>/selectedYears}"
+										selectionChange=".onFilterChange"
+										selectionFinish=".onFilterChange"
+										placeholder="{i18n>filterYear}">
+										<core:Item key="{view>key}" text="{view>text}"/>
+									</MultiComboBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem
+								name="fiscalQuarter"
+								groupName="period"
+								label="{i18n>filterQuarter}"
+								visibleInFilterBar="true">
+								<fb:control>
+									<MultiComboBox
+										id="cbQuarter"
+										width="100%"
+										items="{view>/quarters}"
+										selectedKeys="{view>/selectedQuarters}"
+										selectionChange=".onFilterChange"
+										selectionFinish=".onFilterChange"
+										placeholder="{i18n>filterQuarter}">
+										<core:Item key="{view>key}" text="{view>text}"/>
+									</MultiComboBox>
+								</fb:control>
+							</fb:FilterGroupItem>
+						</fb:filterGroupItems>
+					</fb:FilterBar>
+				</f:content>
+			</f:DynamicPageTitle>
+		</f:title>
+
+		<f:content>
+			<VBox renderType="Bare">
+
+				<MessageStrip
+					id="stripStatus"
+					class="sapUiSmallMarginBeginEnd sapUiSmallMarginTop"
+					visible="{view>/status/visible}"
+					type="{view>/status/type}"
+					text="{view>/status/text}"
+					showIcon="true"/>
+
+				<l:Grid
+					class="sapUiTinyMarginTop sgdCardGrid"
+					defaultSpan="XL4 L4 M12 S12"
+					hSpacing="1"
+					vSpacing="1">
+
+					<!-- 1 Revenue by segment -->
+					<f:Card class="sapUiTinyMarginBottom">
+						<f:layoutData>
+							<l:GridData span="XL12 L12 M12 S12"/>
+						</f:layoutData>
+						<f:header>
+							<card:Header title="{i18n>cardRevenue}" subtitle="{i18n>unitMillionIdr}"/>
+						</f:header>
+						<f:content>
+							<VBox class="sapUiTinyMargin" width="100%" renderType="Bare">
+								<OverflowToolbar design="Transparent">
+									<ToolbarSpacer/>
+									<SegmentedButton selectedKey="{view>/cards/revenue/view}">
+										<items>
+											<SegmentedButtonItem key="chart" icon="sap-icon://line-chart" tooltip="{i18n>btnChart}"/>
+											<SegmentedButtonItem key="table" icon="sap-icon://table-view" tooltip="{i18n>btnTable}"/>
+										</items>
+									</SegmentedButton>
+								</OverflowToolbar>
+								<viz:VizFrame
+									id="vizRevenue"
+									width="100%"
+									height="20rem"
+									vizType="line"
+									visible="{= ${view>/cards/revenue/view} === 'chart' }"
+									uiConfig="{applicationSet:'fiori'}">
+									<viz:dataset>
+										<vizData:FlattenedDataset data="{view>/cards/revenue/chartRows}">
+											<vizData:dimensions>
+												<vizData:DimensionDefinition name="{i18n>dimYear}" value="{view>Year}"/>
+												<vizData:DimensionDefinition name="{i18n>dimQuarter}" value="{view>Quarter}"/>
+												<vizData:DimensionDefinition name="{i18n>dimSegment}" value="{view>Segment}"/>
+											</vizData:dimensions>
+											<vizData:measures>
+												<vizData:MeasureDefinition name="{i18n>measValue}" value="{view>Value}"/>
+											</vizData:measures>
+										</vizData:FlattenedDataset>
+									</viz:dataset>
+								</viz:VizFrame>
+								<Table
+									id="tblRevenue"
+									inset="false"
+									fixedLayout="true"
+									sticky="ColumnHeaders"
+									visible="{= ${view>/cards/revenue/view} === 'table' }"
+									noDataText="{i18n>tableNoData}"/>
+							</VBox>
+						</f:content>
+					</f:Card>
+
+					<!-- 7 Revenue share by segment, has its own period filter -->
+					<f:Card class="sapUiTinyMarginBottom">
+						<f:layoutData>
+							<l:GridData span="XL12 L12 M12 S12"/>
+						</f:layoutData>
+						<f:header>
+							<card:Header title="{i18n>cardPie}" subtitle="{i18n>cardPieSubtitle}"/>
+						</f:header>
+						<f:content>
+							<VBox class="sapUiTinyMargin" width="100%" renderType="Bare">
+
+								<OverflowToolbar design="Transparent">
+									<Select
+										id="selBaseYear"
+										width="6rem"
+										class="sapUiTinyMarginEnd"
+										items="{view>/years}"
+										selectedKey="{view>/pie/baseYear}"
+										tooltip="{i18n>pieBaseYear}"
+										change=".onPieFilterChange">
+										<core:Item key="{view>key}" text="{view>text}"/>
+									</Select>
+									<Select
+										id="selBaseQuarter"
+										width="5rem"
+										items="{view>/quarters}"
+										selectedKey="{view>/pie/baseQuarter}"
+										tooltip="{i18n>pieBaseQuarter}"
+										change=".onPieFilterChange">
+										<core:Item key="{view>key}" text="{view>text}"/>
+									</Select>
+									<core:Icon
+										src="sap-icon://arrow-right"
+										size="0.875rem"
+										class="sapUiTinyMarginBegin sapUiTinyMarginEnd"
+										tooltip="{i18n>cardPieSubtitle}"/>
+									<Select
+										id="selMainYear"
+										width="6rem"
+										class="sapUiTinyMarginEnd"
+										items="{view>/years}"
+										selectedKey="{view>/pie/mainYear}"
+										tooltip="{i18n>pieMainYear}"
+										change=".onPieFilterChange">
+										<core:Item key="{view>key}" text="{view>text}"/>
+									</Select>
+									<Select
+										id="selMainQuarter"
+										width="5rem"
+										items="{view>/quarters}"
+										selectedKey="{view>/pie/mainQuarter}"
+										tooltip="{i18n>pieMainQuarter}"
+										change=".onPieFilterChange">
+										<core:Item key="{view>key}" text="{view>text}"/>
+									</Select>
+									<ToolbarSpacer/>
+									<SegmentedButton selectedKey="{view>/pie/view}">
+										<items>
+											<SegmentedButtonItem key="chart" icon="sap-icon://pie-chart" tooltip="{i18n>btnChart}"/>
+											<SegmentedButtonItem key="table" icon="sap-icon://table-view" tooltip="{i18n>btnTable}"/>
+										</items>
+									</SegmentedButton>
+								</OverflowToolbar>
+
+
+								<MessageStrip
+									id="stripPie"
+									class="sapUiSmallMarginTop"
+									visible="{view>/pie/messageVisible}"
+									type="Warning"
+									text="{view>/pie/message}"
+									showIcon="true"/>
+
+								<HBox wrap="Wrap" width="100%" class="sapUiTinyMarginTop" visible="{= ${view>/pie/view} === 'chart' }">
+									<VBox width="50%" visible="{view>/pie/chartsVisible}">
+										<Text text="{view>/pie/baseLabel}" textAlign="Center" width="100%"/>
+										<viz:VizFrame
+											id="vizPieBase"
+											width="100%"
+											height="19rem"
+											vizType="pie"
+											uiConfig="{applicationSet:'fiori'}">
+											<viz:dataset>
+												<vizData:FlattenedDataset data="{view>/pie/baseRows}">
+													<vizData:dimensions>
+														<vizData:DimensionDefinition name="{i18n>dimSegment}" value="{view>Segment}"/>
+													</vizData:dimensions>
+													<vizData:measures>
+														<vizData:MeasureDefinition name="{i18n>measRevenue}" value="{view>Value}"/>
+													</vizData:measures>
+												</vizData:FlattenedDataset>
+											</viz:dataset>
+										</viz:VizFrame>
+									</VBox>
+									<VBox width="50%" visible="{view>/pie/chartsVisible}">
+										<Text text="{view>/pie/mainLabel}" textAlign="Center" width="100%"/>
+										<viz:VizFrame
+											id="vizPieMain"
+											width="100%"
+											height="19rem"
+											vizType="pie"
+											uiConfig="{applicationSet:'fiori'}">
+											<viz:dataset>
+												<vizData:FlattenedDataset data="{view>/pie/mainRows}">
+													<vizData:dimensions>
+														<vizData:DimensionDefinition name="{i18n>dimSegment}" value="{view>Segment}"/>
+													</vizData:dimensions>
+													<vizData:measures>
+														<vizData:MeasureDefinition name="{i18n>measRevenue}" value="{view>Value}"/>
+													</vizData:measures>
+												</vizData:FlattenedDataset>
+											</viz:dataset>
+										</viz:VizFrame>
+									</VBox>
+								</HBox>
+
+								<Table
+									id="tblPie"
+									class="sapUiSmallMarginTop"
+									visible="{= ${view>/pie/view} === 'table' }"
+									inset="false"
+									fixedLayout="false"
+									items="{view>/pie/rows}"
+									noDataText="{i18n>tableNoData}">
+									<columns>
+										<Column>
+											<Label text="{i18n>colSegment}"/>
+										</Column>
+										<Column hAlign="End">
+											<Label text="{view>/pie/baseLabel}"/>
+										</Column>
+										<Column hAlign="End">
+											<Label text="{view>/pie/mainLabel}"/>
+										</Column>
+										<Column hAlign="End">
+											<Label text="{i18n>colFluctuation}"/>
+										</Column>
+									</columns>
+									<items>
+										<ColumnListItem>
+											<cells>
+												<!-- The table is the legend of the two pie charts, so every row
+												     carries the colour of its segment. -->
+												<HBox alignItems="Center">
+													<core:Icon
+														src="sap-icon://circle-task-2"
+														size="0.75rem"
+														color="{view>Color}"
+														class="sapUiTinyMarginEnd"/>
+													<Text text="{view>SegmentText}"/>
+												</HBox>
+												<ObjectNumber number="{view>BaseShareText}" emphasized="false"/>
+												<ObjectNumber number="{view>MainShareText}" emphasized="false"/>
+												<ObjectStatus text="{view>FlucText}" state="{view>FlucState}"/>
+											</cells>
+										</ColumnListItem>
+									</items>
+								</Table>
+
+							</VBox>
+						</f:content>
+					</f:Card>
+
+					<!-- 2 Gross profit by segment -->
+					<f:Card class="sapUiTinyMarginBottom">
+						<f:layoutData>
+							<l:GridData span="XL6 L6 M12 S12"/>
+						</f:layoutData>
+						<f:header>
+							<card:Header title="{i18n>cardGrossProfit}" subtitle="{i18n>unitMillionIdr}"/>
+						</f:header>
+						<f:content>
+							<VBox class="sapUiTinyMargin" width="100%" renderType="Bare">
+								<OverflowToolbar design="Transparent">
+									<ToolbarSpacer/>
+									<SegmentedButton selectedKey="{view>/cards/grossProfit/view}">
+										<items>
+											<SegmentedButtonItem key="chart" icon="sap-icon://line-chart" tooltip="{i18n>btnChart}"/>
+											<SegmentedButtonItem key="table" icon="sap-icon://table-view" tooltip="{i18n>btnTable}"/>
+										</items>
+									</SegmentedButton>
+								</OverflowToolbar>
+								<viz:VizFrame
+									id="vizGrossProfit"
+									width="100%"
+									height="18rem"
+									vizType="column"
+									visible="{= ${view>/cards/grossProfit/view} === 'chart' }"
+									uiConfig="{applicationSet:'fiori'}">
+									<viz:dataset>
+										<vizData:FlattenedDataset data="{view>/cards/grossProfit/chartRows}">
+											<vizData:dimensions>
+												<vizData:DimensionDefinition name="{i18n>dimYear}" value="{view>Year}"/>
+												<vizData:DimensionDefinition name="{i18n>dimQuarter}" value="{view>Quarter}"/>
+												<vizData:DimensionDefinition name="{i18n>dimSegment}" value="{view>Segment}"/>
+											</vizData:dimensions>
+											<vizData:measures>
+												<vizData:MeasureDefinition name="{i18n>measValue}" value="{view>Value}"/>
+											</vizData:measures>
+										</vizData:FlattenedDataset>
+									</viz:dataset>
+								</viz:VizFrame>
+								<Table
+									id="tblGrossProfit"
+									inset="false"
+									fixedLayout="true"
+									sticky="ColumnHeaders"
+									visible="{= ${view>/cards/grossProfit/view} === 'table' }"
+									noDataText="{i18n>tableNoData}"/>
+							</VBox>
+						</f:content>
+					</f:Card>
+
+					<!-- 4 Profit after tax -->
+					<f:Card class="sapUiTinyMarginBottom">
+						<f:layoutData>
+							<l:GridData span="XL6 L6 M12 S12"/>
+						</f:layoutData>
+						<f:header>
+							<card:Header title="{i18n>cardPat}" subtitle="{i18n>unitMillionIdr}"/>
+						</f:header>
+						<f:content>
+							<VBox class="sapUiTinyMargin" width="100%" renderType="Bare">
+								<OverflowToolbar design="Transparent">
+									<ToolbarSpacer/>
+									<SegmentedButton selectedKey="{view>/cards/pat/view}">
+										<items>
+											<SegmentedButtonItem key="chart" icon="sap-icon://line-chart" tooltip="{i18n>btnChart}"/>
+											<SegmentedButtonItem key="table" icon="sap-icon://table-view" tooltip="{i18n>btnTable}"/>
+										</items>
+									</SegmentedButton>
+								</OverflowToolbar>
+								<viz:VizFrame
+									id="vizPat"
+									width="100%"
+									height="18rem"
+									vizType="column"
+									visible="{= ${view>/cards/pat/view} === 'chart' }"
+									uiConfig="{applicationSet:'fiori'}">
+									<viz:dataset>
+										<vizData:FlattenedDataset data="{view>/cards/pat/chartRows}">
+											<vizData:dimensions>
+												<vizData:DimensionDefinition name="{i18n>dimYear}" value="{view>Year}"/>
+												<vizData:DimensionDefinition name="{i18n>dimQuarter}" value="{view>Quarter}"/>
+												<vizData:DimensionDefinition name="{i18n>dimSegment}" value="{view>Segment}"/>
+											</vizData:dimensions>
+											<vizData:measures>
+												<vizData:MeasureDefinition name="{i18n>measValue}" value="{view>Value}"/>
+											</vizData:measures>
+										</vizData:FlattenedDataset>
+									</viz:dataset>
+								</viz:VizFrame>
+								<Table
+									id="tblPat"
+									inset="false"
+									fixedLayout="true"
+									sticky="ColumnHeaders"
+									visible="{= ${view>/cards/pat/view} === 'table' }"
+									noDataText="{i18n>tableNoData}"/>
+							</VBox>
+						</f:content>
+					</f:Card>
+
+					<!-- 3 Gross profit margin, columns are built in the controller -->
+					<f:Card class="sapUiTinyMarginBottom">
+						<f:layoutData>
+							<l:GridData span="XL6 L6 M12 S12"/>
+						</f:layoutData>
+						<f:header>
+							<card:Header title="{i18n>cardGpm}" subtitle="{i18n>unitPercent}"/>
+						</f:header>
+						<f:content>
+							<VBox width="100%" renderType="Bare">
+								<OverflowToolbar design="Transparent">
+									<ToolbarSpacer/>
+									<SegmentedButton selectedKey="{view>/cards/gpm/view}">
+										<items>
+											<SegmentedButtonItem key="chart" icon="sap-icon://line-chart" tooltip="{i18n>btnChart}"/>
+											<SegmentedButtonItem key="table" icon="sap-icon://table-view" tooltip="{i18n>btnTable}"/>
+										</items>
+									</SegmentedButton>
+								</OverflowToolbar>
+								<viz:VizFrame
+									id="vizGpm"
+									class="sapUiTinyMarginBegin sapUiTinyMarginEnd sapUiTinyMarginBottom"
+									width="100%"
+									height="16rem"
+									vizType="line"
+									visible="{= ${view>/cards/gpm/view} === 'chart' }"
+									uiConfig="{applicationSet:'fiori'}">
+									<viz:dataset>
+										<vizData:FlattenedDataset data="{view>/cards/gpm/chartRows}">
+											<vizData:dimensions>
+												<vizData:DimensionDefinition name="{i18n>dimYear}" value="{view>Year}"/>
+												<vizData:DimensionDefinition name="{i18n>dimQuarter}" value="{view>Quarter}"/>
+												<vizData:DimensionDefinition name="{i18n>dimSegment}" value="{view>Segment}"/>
+											</vizData:dimensions>
+											<vizData:measures>
+												<vizData:MeasureDefinition name="{i18n>measValue}" value="{view>Value}"/>
+											</vizData:measures>
+										</vizData:FlattenedDataset>
+									</viz:dataset>
+								</viz:VizFrame>
+								<Table
+									id="tblGpm"
+									inset="false"
+									fixedLayout="true"
+									sticky="ColumnHeaders"
+									visible="{= ${view>/cards/gpm/view} === 'table' }"
+									noDataText="{i18n>tableNoData}"/>
+							</VBox>
+						</f:content>
+					</f:Card>
+
+					<!-- 5 Net profit margin, columns are built in the controller -->
+					<f:Card class="sapUiTinyMarginBottom">
+						<f:layoutData>
+							<l:GridData span="XL6 L6 M12 S12"/>
+						</f:layoutData>
+						<f:header>
+							<card:Header title="{i18n>cardNpm}" subtitle="{i18n>unitPercent}"/>
+						</f:header>
+						<f:content>
+							<VBox width="100%" renderType="Bare">
+								<OverflowToolbar design="Transparent">
+									<ToolbarSpacer/>
+									<SegmentedButton selectedKey="{view>/cards/npm/view}">
+										<items>
+											<SegmentedButtonItem key="chart" icon="sap-icon://line-chart" tooltip="{i18n>btnChart}"/>
+											<SegmentedButtonItem key="table" icon="sap-icon://table-view" tooltip="{i18n>btnTable}"/>
+										</items>
+									</SegmentedButton>
+								</OverflowToolbar>
+								<viz:VizFrame
+									id="vizNpm"
+									class="sapUiTinyMarginBegin sapUiTinyMarginEnd sapUiTinyMarginBottom"
+									width="100%"
+									height="16rem"
+									vizType="line"
+									visible="{= ${view>/cards/npm/view} === 'chart' }"
+									uiConfig="{applicationSet:'fiori'}">
+									<viz:dataset>
+										<vizData:FlattenedDataset data="{view>/cards/npm/chartRows}">
+											<vizData:dimensions>
+												<vizData:DimensionDefinition name="{i18n>dimYear}" value="{view>Year}"/>
+												<vizData:DimensionDefinition name="{i18n>dimQuarter}" value="{view>Quarter}"/>
+												<vizData:DimensionDefinition name="{i18n>dimSegment}" value="{view>Segment}"/>
+											</vizData:dimensions>
+											<vizData:measures>
+												<vizData:MeasureDefinition name="{i18n>measValue}" value="{view>Value}"/>
+											</vizData:measures>
+										</vizData:FlattenedDataset>
+									</viz:dataset>
+								</viz:VizFrame>
+								<Table
+									id="tblNpm"
+									inset="false"
+									fixedLayout="true"
+									sticky="ColumnHeaders"
+									visible="{= ${view>/cards/npm/view} === 'table' }"
+									noDataText="{i18n>tableNoData}"/>
+							</VBox>
+						</f:content>
+					</f:Card>
+
+					<!-- 6 Forex gain and loss, full width -->
+					<f:Card class="sapUiTinyMarginBottom">
+						<f:layoutData>
+							<l:GridData span="XL12 L12 M12 S12"/>
+						</f:layoutData>
+						<f:header>
+							<card:Header title="{i18n>cardForex}" subtitle="{i18n>unitThousandIdr}"/>
+						</f:header>
+						<f:content>
+							<VBox class="sapUiTinyMargin" width="100%" renderType="Bare">
+								<OverflowToolbar design="Transparent">
+									<ToolbarSpacer/>
+									<SegmentedButton selectedKey="{view>/cards/forex/view}">
+										<items>
+											<SegmentedButtonItem key="chart" icon="sap-icon://line-chart" tooltip="{i18n>btnChart}"/>
+											<SegmentedButtonItem key="table" icon="sap-icon://table-view" tooltip="{i18n>btnTable}"/>
+										</items>
+									</SegmentedButton>
+								</OverflowToolbar>
+								<viz:VizFrame
+									id="vizForex"
+									width="100%"
+									height="20rem"
+									vizType="line"
+									visible="{= ${view>/cards/forex/view} === 'chart' }"
+									uiConfig="{applicationSet:'fiori'}">
+									<viz:dataset>
+										<vizData:FlattenedDataset data="{view>/cards/forex/chartRows}">
+											<vizData:dimensions>
+												<vizData:DimensionDefinition name="{i18n>dimYear}" value="{view>Year}"/>
+												<vizData:DimensionDefinition name="{i18n>dimQuarter}" value="{view>Quarter}"/>
+												<vizData:DimensionDefinition name="{i18n>dimSegment}" value="{view>Segment}"/>
+											</vizData:dimensions>
+											<vizData:measures>
+												<vizData:MeasureDefinition name="{i18n>measValue}" value="{view>Value}"/>
+											</vizData:measures>
+										</vizData:FlattenedDataset>
+									</viz:dataset>
+								</viz:VizFrame>
+								<Table
+									id="tblForex"
+									inset="false"
+									fixedLayout="true"
+									sticky="ColumnHeaders"
+									visible="{= ${view>/cards/forex/view} === 'table' }"
+									noDataText="{i18n>tableNoData}"/>
+							</VBox>
+						</f:content>
+					</f:Card>
+
+				</l:Grid>
+			</VBox>
+		</f:content>
+
+	</f:DynamicPage>
+
+</mvc:View>
